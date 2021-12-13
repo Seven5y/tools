@@ -36,8 +36,10 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
+			fmt.Println(types.NewTick().Value())
 			return
 		}
+
 		ts, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			logrus.Println(err.Error())

@@ -17,7 +17,10 @@ package cmd
 
 import (
 	"fmt"
+	"strconv"
 
+	"github.com/seven5y/tools/pkg/types"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -32,7 +35,17 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("timestamp called")
+		if len(args) == 0 {
+			return
+		}
+		ts, err := strconv.ParseInt(args[0], 10, 64)
+		if err != nil {
+			logrus.Println(err.Error())
+			return
+		}
+		tk := types.Tick(ts)
+
+		fmt.Println(tk.ToTime().Format("2006-01-02 15:04:05"))
 	},
 }
 
